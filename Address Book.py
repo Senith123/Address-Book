@@ -33,6 +33,24 @@ def save_item():
     if file:
         print(myAddressBook, file = file)
     address_list.delete(0, END)
+def edit_item():
+    clear_all()
+    item = address_list.curselection()
+    title3.insert(0, address_list.get(item))
+    title5.insert(0, myAddressBook[title3.get()][0])
+    title7.insert(0, myAddressBook[title3.get()][1])
+    title9.insert(0, myAddressBook[title3.get()][2])
+    title11.insert(0, myAddressBook[title3.get()][3])
+def open_item():
+    global myAddressBook
+    clear_all()
+    address_list.delete(0, END)
+    myAddressBook.clear()
+    file = askopenfile(title = 'Open File')
+    if file:
+        myAddressBook = eval(file.read())
+        for key in myAddressBook.keys():
+            address_list.insert(END, key)
 title1 = Label(screen, text = "My Address Book", bg = "dim gray", fg = "snow3", font = ("times", 80, "bold"))
 title1.place(x = 100, y = 100)
 title2 = Label(screen, text = "Name :", bg = "dim gray", fg = "snow3", font = ("times", 19, "bold"))
@@ -55,11 +73,11 @@ title10 = Label(screen, text = "Birthday :", bg = "dim gray", fg = "snow3", font
 title10.place(x = 600, y = 700)
 title11 = Entry(screen, bd = 5, bg = "dim gray", fg = "snow3", width = 20, font = ("times", 15, "bold"))
 title11.place(x = 750, y = 700)
-edit = Button (screen, text = "Edit", bg = "gray24", fg = "snow3", width = 10, font = ("times", 20, "bold"))
+edit = Button (screen, text = "Edit", bg = "gray24", fg = "snow3", width = 10, font = ("times", 20, "bold"), command = edit_item)
 edit.place(x = 50, y = 830)
 delete = Button (screen, text = "Delete", bg = "gray24", fg = "snow3", width = 10, font = ("times", 20, "bold"), command = delete_address)
 delete.place(x = 300, y = 830)
-open = Button (screen, text = "Open", bg = "gray24", fg = "snow3", width = 10, font = ("times", 20, "bold"))
+open = Button (screen, text = "Open", bg = "gray24", fg = "snow3", width = 10, font = ("times", 20, "bold"), command = open_item)
 open.place(x = 550, y = 830)
 add = Button (screen, text = "Update/Add", bg = "gray24", fg = "snow3", width = 10, font = ("times", 20, "bold"), command = update_address)
 add.place(x = 800, y = 830)
